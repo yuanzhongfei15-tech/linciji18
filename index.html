@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全能在线工具箱 - 免费实用工具集合</title>
+    <meta name="description" content="提供图片压缩、格式转换、文本处理、编码解码、实用工具等多种在线工具，免费使用，无需下载安装。">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">🛠️</span>
+                <span class="logo-text">全能工具箱</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#image" class="nav-link active" data-category="image">图片工具</a>
+                <a href="#text" class="nav-link" data-category="text">文本工具</a>
+                <a href="#encode" class="nav-link" data-category="encode">编码工具</a>
+                <a href="#utility" class="nav-link" data-category="utility">实用工具</a>
+                <a href="#life" class="nav-link" data-category="life">便民工具</a>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- 左侧分类菜单 -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>工具分类</h2>
+            </div>
+            <div class="category-list">
+                <div class="category active" data-category="image">
+                    <span class="category-icon">🖼️</span>
+                    <span class="category-name">图片工具</span>
+                </div>
+                <div class="category" data-category="text">
+                    <span class="category-icon">📝</span>
+                    <span class="category-name">文本工具</span>
+                </div>
+                <div class="category" data-category="encode">
+                    <span class="category-icon">🔐</span>
+                    <span class="category-name">编码工具</span>
+                </div>
+                <div class="category" data-category="utility">
+                    <span class="category-icon">⚙️</span>
+                    <span class="category-name">实用工具</span>
+                </div>
+                <div class="category" data-category="life">
+                    <span class="category-icon">🏠</span>
+                    <span class="category-name">便民工具</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 右侧工具详情 -->
+        <main class="content" id="content">
+            <!-- 图片工具 -->
+            <section id="image" class="tool-section">
+                <div class="section-header">
+                    <h1>图片工具</h1>
+                    <p>专业的图片处理工具，支持多种格式和操作</p>
+                </div>
+                
+                <div class="tool-grid">
+                    <div class="tool-card" data-tool="compress">
+                        <div class="tool-icon">🗜️</div>
+                        <h3>图片压缩</h3>
+                        <p>在线压缩图片大小，支持JPG、PNG、WebP等格式</p>
+                    </div>
+                    <div class="tool-card" data-tool="convert">
+                        <div class="tool-icon">🔄</div>
+                        <h3>格式转换</h3>
+                        <p>将图片转换为JPG、PNG、WebP等格式</p>
+                    </div>
+                    <div class="tool-card" data-tool="removebg">
+                        <div class="tool-icon">✨</div>
+                        <h3>去背景</h3>
+                        <p>自动去除图片背景，保留主体</p>
+                    </div>
+                    <div class="tool-card" data-tool="watermark">
+                        <div class="tool-icon">🏷️</div>
+                        <h3>加水印</h3>
+                        <p>为图片添加自定义文字或图片水印</p>
+                    </div>
+                    <div class="tool-card" data-tool="enlarge">
+                        <div class="tool-icon">🔍</div>
+                        <h3>无损放大</h3>
+                        <p>使用AI技术无损放大图片尺寸</p>
+                    </div>
+                    <div class="tool-card" data-tool="merge">
+                        <div class="tool-icon">📐</div>
+                        <h3>图片拼接</h3>
+                        <p>将多张图片拼接成一张大图</p>
+                    </div>
+                </div>
+
+                <!-- 工具详情面板 -->
+                <div class="tool-panel" id="image-panel">
+                    <!-- 图片压缩工具 -->
+                    <div class="tool-detail" id="tool-compress">
+                        <div class="detail-header">
+                            <h2>🗜️ 图片压缩</h2>
+                            <button class="close-btn" onclick="closeTool()">&times;</button>
+                        </div>
+                        <div class="detail-body">
+                            <p class="description">在线压缩图片，支持JPG、PNG、WebP格式，可调节压缩质量，保持图片清晰度的同时减小文件大小。</p>
+                            <div class="image-upload-area" id="compress-upload">
+                                <input type="file" id="compress-file" accept="image/*" hidden>
+                                <div class="upload-content">
+                                    <span class="upload-icon">📷</span>
+                                    <p>点击或拖拽上传图片</p>
+                                    <p class="upload-hint">支持 JPG、PNG、WebP 格式，最大10MB</p>
+                                </div>
+                            </div>
+                            <div class="compress-options">
+                                <label>
+                                    <span>压缩质量</span>
+                                    <input type="range" id="quality-slider" min="10" max="100" value="80">
+                                    <span id="quality-value">80%</span>
+                                </label>
+                            </div>
+                            <div class="compress-result" id="compress-result" style="display: none;">
+                                <div class="result-images">
+                                    <div class="image-box">
+                                        <p>原图</p>
+                                        <img id="original-image" alt="原图">
+                                        <p class="image-size" id="original-size"></p>
+                                    </div>
+                                    <div class="image-box">
+                                        <p>压缩后</p>
+                                        <img id="compressed-image" alt="压缩后">
+                                        <p class="image-size" id="compressed-size"></p>
+                                    </div>
+                                </div>
+                                <div class="result-info">
+                                    <p>压缩比例: <span id="compress-ratio"></span></p>
+                                </div>
+                                <button class="download-btn" id="download-compressed">下载压缩图片</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 格式转换工具 -->
+                    <div class="tool-detail" id="tool-convert" style="display: none;">
+                        <div class="detail-header">
+                            <h2>🔄 图片格式转换</h2>
+                            <button class="close-btn" onclick="closeTool()">&times;</button>
+                        </div>
+                        <div class="detail-body">
+                            <p class="description">将图片转换为不同格式，支持JPG、PNG、WebP、GIF等格式之间的相互转换。</p>
+                            <div class="image-upload-area" id="convert-upload">
+                                <input type="file" id="convert-file" accept="image/*" hidden>
+                                <div class="upload-content">
+                                    <span class="upload-icon">📷</span>
+                                    <p>点击或拖拽上传图片</p>
+                                    <p class="upload-hint">支持 JPG、PNG、WebP、GIF 格式</p>
+                                </div>
+                            </div>
+                            <div class="convert-options">
+                                <label>
+                                    <span>目标格式</span>
+                                    <select id="target-format">
+                                        <option value="jpeg">JPEG</option>
+                                        <option value="png">PNG</option>
+                                        <option value="webp">WebP</option>
+                                        <option value="gif">GIF</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="convert-result" id="convert-result" style="display: none;">
+                                <div class="result-image">
+                                    <img id="converted-image" alt="转换后">
+                                </div>
+                                <button class="download-btn" id="download-converted">下载转换后的图片</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 去背景工具 -->
+                    <div class="tool-detail" id="tool-removebg" style="display: none;">
+                        <div class="detail-header">
+                            <h2>✨ 图片去背景</h2>
+                            <button class="close-btn" onclick="closeTool()">&times;</button>
+                        </div>
+                        <div class="detail-body">
+                            <p class="description">使用AI技术自动去除图片背景，保留主体内容，生成透明背景图片。</p>
+                            <div class="image-upload-area" id="removebg-upload">
+                                <input type="file" id="removebg-file" accept="image/*" hidden>
+                                <div class="upload-content">
+                                    <span class="upload-icon">📷</span>
+                                    <p>点击或拖拽上传图片</p>
+                                    <p class="upload-hint">支持 JPG、PNG 格式，人物识别效果更佳</p>
+                                </div>
+                            </div>
+                            <div class="removebg-result" id="removebg-result" style="display: none;">
+                                <div class="result-images">
+                                    <div class="image-box">
+                                        <p>原图</p>
+                                        <img id="removebg-original" alt="原图">
+                                    </div>
+                                    <div class="image-box">
+                                        <p>去背景后</p>
+                                        <img id="removebg-result-img" alt="去背景后">
+                                    </div>
+                                </div>
+                                <button class="download-btn" id="download-removebg">下载去背景图片</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 加水印工具 -->
+                    <div class="tool-detail" id="tool-watermark" style="display: none;">
+                        <div class="detail-header">
+                            <h2>🏷️ 图片加水印</h2>
+                            <button class="close-btn" onclick="closeTool()">&times;</button>
+                        </div>
+                        <div class="detail-body">
+                            <p class="description">为图片添加自定义文字水印，支持调整位置、大小、透明度等参数。</p>
+                            <div class="image-upload-area" id="watermark-upload">
+                                <input type="file" id="watermark-file" accept="image/*" hidden>
+                                <div class="upload-content">
+                                    <span class="upload-icon">📷</span>
+                                    <p>点击或拖拽上传图片</p>
+                                    <p class="upload-hint">支持 JPG、PNG、WebP 格式</p>
+                                </div>
+                            </div>
+                            <div class="watermark-options">
+                                <label>
+                                    <span>水印文字</span>
+                                    <input type="text" id="watermark-text" placeholder="请输入水印文字">
+                                </label>
+                                <label>
+                                    <span>字体大小</span>
+                                    <input type="range" id="watermark-size" min="12" max="72" value="24">
+                                    <span id="watermark-size-value">24px</span>
+                                </label>
+                                <label>
+                                    <span>透明度</span>
+                                    <input type="range" id="watermark-opacity" min="10" max="100" value="50">
+                                    <span id="watermark-opacity-value">50%</span>
+                                </label>
+                                <label>
+                                    <span>位置</span>
+                                    <select id="watermark-position">
+                                        <option value="top-left">左上</option>
+                                        <option value="top-right">右上</option>
+                                        <option value="bottom-left">左下</option>
+                                        <option value="bottom-right">右下</option>
+                                        <option value="center">居中</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="watermark-result" id="watermark-result" style="display: none;">
+                                <img id="watermark-result-img" alt="加水印后">
+                                <button class="download-btn" id="download-watermark">下载加水印图片</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 无损放大工具 -->
+                    <div class="tool-detail" id="tool-enlarge" style="display: none;">
+                        <div class="detail-header">
+                            <h2>🔍 无损放大</h2>
+                            <button class="close-btn" onclick="closeTool()">&times;</button>
+                        </div>
+                        <div class="detail-body">
+                            <p class="description">使用AI技术智能放大图片，保持清晰度，最高支持4倍放大。</p>
+                            <div class="image-upload-area" id="enlarge-upload">
+                                <input type="file" id="enlarge-file" accept="image/*" hidden>
+                                <div class="upload-content">
+                                    <span class="upload-icon">📷</span>
+                                    <p>点击或拖拽上传图片</p>
+                                    <p class="upload-hint">支持 JPG、PNG 格式</p>
+                                </div>
+                            </div>
+                            <div class="enlarge-options">
+                                <label>
+                                    <span>放大倍数</span>
+                                    <select id="enlarge-scale">
+                                        <option value="2">2倍</option>
+                                        <option value="3">3倍</option>
+                                        <option value="4">4倍</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="enlarge-result" id="enlarge-result" style="display: none;">
+                                <div class="result-images">
+                                    <div class="image-box">
+                                        <p>原图</p>
+                                        <img id="enlarge-original" alt="原图">
+                                        <p class="image-size" id="enlarge-original-size"></p>
+                                    </div>
+                                    <div class="image-box">
+                                        <p>放大后</p>
+                                        <img id="enlarge-result-img" alt="放大后">
+                                        <p class="image-size" id="enlarge-result-size"></p>
+                                    </div>
+                                </div>
+                                <button class="download-btn" id="download-enlarge">下载放大图片</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 图片拼接工具 -->
+                    <div class="tool-detail" id="tool-merge" style="display: none;">
+                        <div class="detail-header">
+                            <h2>📐 图片拼接</h2>
+                            <button class="close-btn" onclick="closeTool()">&times;</button>
+                        </div>
+                        <div class="detail-body">
+                            <p class="description">将多张图片横向或纵向拼接成一张大图，支持调整拼接顺序。</p>
+                            <div class="merge-upload-area">
+                                <input type="file" id="merge-files" accept="image/*" multiple hidden>
+                                <div class="upload-content">
+                                    <span class="upload-icon">📷</span>
+                                    <p>点击或拖拽上传多张图片</p>
+                                    <p class="upload-hint">支持 JPG、PNG、WebP 格式，最多9张</p>
+                                </div>
+                            </div>
+                            <div class="merge-preview" id="merge-preview"></div>
+                            <div class="merge-options">
+                                <label>
+                                    <span>拼接方向</span>
+                                    <select id="merge-direction">
+                                        <option value="vertical">纵向</option>
+                                        <option value="horizontal">横向</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <button class="merge-btn" id="merge-images" style="display: none;">拼接图片</button>
+                            <div class="merge-result" id="merge-result" style="display: none;">
+                                <img id="merged-image" alt="拼接后">
+                                <button class="download-btn" id="download-merged">下载拼接图片</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 文本工具 -->
+            <section id="text" class="tool-section" style="display: none;">
+                <div class="section-header">
+                    <h1>文本工具</h1>
+                    <p>便捷的文本处理工具，提升工作效率</p>
+                </div>
+                
+                <div class="tool-grid">
+                    <div class="tool-card" data-tool="wordcount">
+                        <div class="tool-icon">📊</div>
+                        <h3>字数统计</h3>
+                        <p>统计文本的字数、字符数、行数等信息</p>
+                    </div>
+                    <div class="tool-card" data-tool="caseconvert">
+                        <div class="tool-icon">🔤</div>
+                        <h3>大小写转换</h3>
+                        <p>快速转换文本的大小写格式</p>
+                    </div>
+                    <div class="tool-card" data-tool="chtcns">
+                        <div class="tool-icon">🔄</div>
+                        <h3>繁简转换</h3>
+                        <p>中文简体和繁体之间的转换</p>
+                    </div>
+                    <div class="tool-card" data-tool="textcompare">
+                        <div class="tool-icon">🔍</div>
+                        <h3>文本对比</h3>
+                        <p>对比两段文本的差异</p>
+                    </div>
+                    <div class="tool-card" data-tool="qrcode">
+                        <div class="tool-icon">📱</div>
+                        <h3>二维码生成</h3>
+                        <p>将文本转换为二维码图片</p>
+                    </div>
+                </div>
+
+                <div class="tool-panel" id="text-panel">
+                    <!-- 字数统计工具 -->
+                    <div class="tool-detail" id="tool-wordcount">
+                        <div class="detail-header">
+                            <h2>📊 字数统计</h2>
+                            <button class="close-btn" onclick="closeTool()">&times;</button>
+                        </div>
+                        <div class="detail-body">
+                            <p class="description">统计文本的字数、字符数、行数、段落数等详细信息。</p>
+                            <textarea id="wordcount-input" placeholder="请输入要统计的文本..."></textarea>
+                            <div class="wordcount-result" id="wordcount-result">
+                                <div class="stat-item">
+                                    <span class="stat-label">字数（含空格）</span>
+                                    <span class="stat-value" id="stat-total">0</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">字数（不含空格）</span>
+                                    <span class="stat-value" id="stat-no-space">0</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">中文字符</span>
+                                    <span class="stat-value" id="stat-chinese">0</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">英文字符</span>
+                                    <span class="stat-value" id="stat-english">0</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">行数</span>
+                                    <span class="stat-value" id="stat-lines">0</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">段落数</span>
+                                    <span class="stat-value" id="stat-paragraphs">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 大小写转换工具 -->
+                    <div class="tool-detail" id="tool-caseconvert" style="display: none;">
+                        <div class="detail-header">
+                            <h2>🔤 大小写转换</h2>
+                            <button class="close-btn" onclick="closeTool()">&times;</button>
+                        </div>
+                        <div class="detail-body">
+                            <p class="description">快速转换文本的大小写格式，支持全大写、全小写、首字母大写等模式。</p>
+                            <textarea id="caseconvert-input" placeholder="请输入要转换的文本..."></textarea>
+                            <div class="convert-buttons">
+                                <button class="action-btn" onclick="convertCase('uppercase')">全大写</button>
+                                <button class="action-btn" onclick="convertCase('lowercase')">全小写</button>
+                                <button class="action-btn" onclick="convertCase('capitalize')">首字母大写</button>
+                                <button class="action-btn" onclick="convertCase('title')">每个单词首字母大写</button>
+                                <button class="action-btn" onclick="convertCase('toggle')">大小写互换</button>
+                            </div>
+                            <textarea id="caseconvert-output" placeholder="转换结果将显示在这里..." readonly></textarea>
+                            <button class="copy-btn" onclick="copyToClipboard('caseconvert-output')">复制结果</button>
+                        </div>
+                    </div>
+
+                    <!-- 繁简转换工具 -->
+                    <div class="tool-detail" id="tool-chtcns" style="display: none;">
+                        <div class="detail-header">
+                            <h2>🔄 繁简转换</h2>
+                            <button class="close-btn" onclick="closeTool()">&times;</button>
+                        </div>
+                        <div class="detail-body">
+                            <p class="description">中文简体和繁体之间的相互转换，支持大陆、台湾、香港繁体差异。</p>
+                            <div class="chtcns-container">
+                                <div class="chtcns-input">
+                                    <label>输入文本</label>
+                                    <textarea id="chtcns-input-text" placeholder="请输入要转换的文本..."></textarea>
+                                </div>
+                                <div class="chtcns-buttons">
+                                    <button class="action-btn" onclick="convertChtCns('s2t')">简体转繁体</button>
+                                    <button class="action-btn" onclick="convertChtCns('t2s')">繁体转简体</button>
+                                </div>
+                                <div class="chtcns-output">
+                                    <label>转换结果</label>
+                                    <textarea id="chtcns-output-text" placeholder="转换结果将显示在这里..." readonly></textarea>
+                                </div>
+                            </div>
+                            <button class="copy-btn" onclick="copyToClipboard('chtcns-output-text')">复制结果</button>
+                        </div>
+                    </div>
+
+                    <!-- 文本对比工具 -->
+                    <div class="tool-detail" id="tool-textcompare" style="display: none;">
+                        <div class="detail-header">
+                            <h2>🔍 文本对比</h2>
+                            <button class="close-btn" onclick="closeTool()">&times;</button>
+                        </div>
+                        <div class="detail-body">
+                            <p class="description">对比两段文本的差异，高亮显示新增、删除和修改的内容。</p>
+                            <div class="compare-container">
+                                <div class="compare-panel">
+                                    <label>原始文本</label>
+                                    <textarea id="compare-original" placeholder="请输入原始文本..."></textarea>
+                                </div>
+                                <div class="compare-panel">
+                                    <label>对比文本</label>
+                                    <textarea id="compare-compare" placeholder="请输入对比文本..."></textarea>
+                                </div>
+                            </div>
+                            <button class="action-btn" onclick="compareText()">开始对比</button>
+                            <div class="compare-result" id="compare-result"></div>
+                        </div>
+                    </div>
+
+                    <!-- 二维码生成工具 -->
+                    <div class="tool-detail" id="tool-qrcode" style="display: none;">
+                        <div class="detail-header">
+                            <h2>📱 二维码生成</h2>
+                            <button class="close-btn" onclick="closeTool()">&times;</button>
+                        </div>
+                        <div class="detail-body">
+                            <p class="description">将文本、网址等内容转换为二维码图片，支持自定义大小和纠错级别。</p>
+                            <input type="text" id="qrcode-input" placeholder="请输入要生成二维码的内容...">
+                            <div class="qrcode-options">
+                                <label>
+                                    <span>二维码大小</span>
+                                    <input type="range" id="qrcode-size" min="100" max="300" value="200">
+                                    <span id="qrcode-size-value">200px</span>
+                                </label>
+                            </div>
+                            <button class="action-btn" onclick="generateQRCode()">生成二维码</button>
+                            <div class="qrcode-result" id="qrcode-result"></div>
+                            <button class="download-btn" id="download-qrcode" style="display: none;">下载二维码</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 编码工具 -->
+            <section id="encode" class="tool-section" style="display: none;">
+                <div class="section-header">
+                    <h1>编码工具</h1>
+                    <p>专业的编码解码工具，支持多种格式</p>
+                </div>
+                
+                <div class="tool-grid">
+                    <div class="tool-card" data-tool="urlencode">
+                        <div class="tool-icon">🔗</div>
+                        <h3>URL编解码</h3>
+                        <p>URL编码和解码，处理特殊字符</p>
+                    </div>
+                    <div class="tool-card" data-tool="base64">
+                        <div class="tool-icon">📦</div>
+                        <h3>Base64编解码</h3>
+                        <p>Base64编码和解码工具</p>
+                    </div>
+                    <div class="tool-card" data-tool="jsonformat">
+                        <div class="tool-icon">📋</div>
+                        <h3>JSON格式化</h3>
+                        <p>格式化JSON数据，便于阅读</p>
+                    </div>
+                    <div class="tool-card" data-tool="md5">
+                        <div class="tool-icon">🔐</div>
+                        <h3>MD5加密</h3>
+                        <p>计算字符串的MD5哈希值</p>
+                    </div>
+                </div>
+
+                <div class="tool-panel" id="encode-panel">
+                    <!-- URL编解码工具 -->
+                    <div class="tool-detail" id="tool-urlencode">
+                        <div class="detail-header">
+                            <h2>🔗 URL编解码</h2>
+                            <button class="close-btn" onclick="closeTool()">&times;</button>
+                        </div>
+                        <div class="detail-body">
+                            <p class="description">对URL进行编码和解码，处理特殊字符，确保URL安全传输。</p>
+                            <div class="encode-container">
+                                <div class="encode-panel">
+                                    <label>输入</label>
+                                    <textarea id="urlencode-input" placeholder="请输入要编码/解码的URL..."></textarea>
+                                </div>
+                                <div class="encode-buttons">
+                                    <button class="action-btn" onclick="urlEncode()">URL编码</button>
+                                    <button class="action-btn" onclick="urlDecode()">URL解码</button>
+                                </div>
+                                <div class="encode-panel">
+                                    <label>结果</label>
+                                    <textarea id="urlencode-output" placeholder="结果将显示在这里..." readonly></textarea>
+                                </div>
+                            </div>
+                            <button class="copy-btn" onclick="copyToClipboard('urlencode-output')">复制结果</button>
+                        </div>
+                    </div>
+
+                    <!-- Base64编解码工具 -->
+                    <div class="tool-detail" id="tool-base64" style="display: none;">
+                        <div class="detail-header">
+                            <h2>📦 Base64编解码</h2>
+                            <button class="close-btn" onclick="closeTool()">&times;</button>
+                        </div>
+                        <div class="detail-body">
+                            <p class="description">Base64编码和解码，常用于数据传输和存储。</p>
+                            <div class="encode-container">
+                                <div class="encode-panel">
+                                    <label>输入</label>
+                                    <textarea id="base64-input" placeholder="请输入要编码/解码的内容..."></textarea>
+                                </div>
+                                <div class="encode-buttons">
+                                    <button class="action-btn" onclick="base64Encode()">Base64编码</button>
+                                    <button class="action-btn" onclick="base64Decode()">Base64解码</button>
+                                </div>
+                                <div class="encode-panel">
+                                    <label>结果</label>
+                                    <textarea id="base64-output" placeholder="结果将显示在这里..." readonly></textarea>
+                                </div>
+                            </div>
+                            <button class="copy-btn" onclick="copyToClipboard('base64-output')">复制结果</button>
+                        </div>
+                    </div>
+
+                    <!-- JSON格式化工具 -->
+                    <div class="tool-detail" id="tool-jsonformat" style="display: none;">
+                        <div class="detail-header">
+                            <h2>📋 JSON格式化</h2>
+                            <button class="close-btn" onclick="closeTool()">&times;</button>
+                        </div>
+                        <div class="detail-body">
+                            <p class="description">将JSON数据格式化，添加缩进和换行，便于阅读和调试。</p>
+                            <div class="encode-container">
+                                <div class="encode-panel">
+                                    <label>输入JSON</label>
+                                    <textarea id="json-input" placeholder="请输入JSON数据..."></textarea>
+                                </div>
+                                <div class="encode-buttons">
+                                    <button class="action-btn" onclick="jsonFormat()">格式化JSON</button>
+                                    <button class="action-btn" onclick="jsonMinify()">压缩JSON</button>
+                                </div>
+                                <div class="encode-panel">
+                                    <label>结果</label>
+                                    <textarea id="json-output" placeholder="结果将显示在这里..." readonly></textarea>
+                                </div>
+                            </div>
+                            <div class="json-info" id="json-info"></div>
+                            <button class="copy-btn" onclick="copyToClipboard('json-output')">复制结果</button>
+                        </div>
+                    </div>
+
+                    <!-- MD5加密工具 -->
+                    <div class="tool-detail" id="tool-md5" style="display: none;">
+                        <div class="detail-header">
+                            <h2>🔐 MD5加密</h2>
+                            <button class="close-btn" onclick="closeTool()">&times;</button>
+                        </div>
+                        <div class="detail-body">
+                            <p class="description">计算字符串的MD5哈希值，常用于密码加密和数据完整性校验。</p>
+                            <input type="text" id="md5-input" placeholder="请输入要加密的字符串...">
+                            <button class="action-btn" onclick="calculateMD5()">计算MD5</button>
+                            <div class="md5-result">
+                                <div class="result-box">
+                                    <label>32位结果</label>
+                                    <input type="text" id="md5-32" readonly>
+                                    <button class="copy-btn" onclick="copyToClipboard('md5-32')">复制</button>
+                                </div>
+                                <div class="result-box">
+                                    <label>16位结果</label>
+                                    <input type="text" id="md5-16" readonly>
+                                    <button class="copy-btn" onclick="copyToClipboard('md5-16')">复制</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 实用工具 -->
+            <section id="utility" class="tool-section" style="display: none;">
+                <div class="section-header">
+                    <h1>实用工具</h1>
+                    <p>日常工作中常用的实用小工具</p>
+                </div>
+                
+                <div class="tool-grid">
+                    <div class="tool-card" data-tool="timestamp">
+                        <div class="tool-icon">⏰</div>
+                        <h3>时间戳转换</h3>
+                        <p>时间戳与日期时间之间的转换</p>
+                    </div>
+                    <div class="tool-card" data-tool="convertbase">
+                        <div class="tool-icon">🔢</div>
+                        <h3>进制转换</h3>
+                        <p>二进制、八进制、十进制、十六进制转换</p>
+                    </div>
+                    <div class="tool-card" data-tool="unitconvert">
+                        <div class="tool-icon">📏</div>
+                        <h3>单位换算</h3>
+                        <p>长度、重量、面积等单位换算</p>
+                    </div>
+                    <div class="tool-card" data-tool="random">
+                        <div class="tool-icon">🎲</div>
+                        <h3>随机数生成</h3>
+                        <p>生成指定范围的随机数</p>
+                    </div>
+                    <div class="tool-card" data-tool="password">
+                        <div class="tool-icon">🔑</div>
+                        <h3>密码生成器</h3>
+                        <p>生成高强度随机密码</p>
+                    </div>
+                </div>
+
+                <div class="tool-panel" id="utility-panel">
+                    <!-- 时间戳转换工具 -->
+                    <div class="tool-detail" id="tool-timestamp">
+                        <div class="detail-header">
+                            <h2>⏰ 时间戳转换</h2>
+                            <button class="close-btn" onclick="closeTool()">&times;</button>
+                        </div>
+                        <div class="detail-body">
+                            <p class="description">将Unix时间戳转换为可读日期时间，或从日期时间获取时间戳。</p>
+                            <div class="timestamp-container">
+                                <div class="timestamp-panel">
+                                    <label>时间戳（秒）</label>
+                                    <input type="number" id="timestamp-input" placeholder="请输入时间戳">
+                                    <button class="action-btn" onclick="timestampToDate()">转换为日期</button>
+                                </div>
+                                <div class="timestamp-panel">
+                                    <label>日期时间</label>
+                                    <input type="datetime-local" id="datetime-input">
+                                    <button class="action-btn" onclick="dateToTimestamp()">转换为时间戳</button>
+                                </div>
+                            </div>
+                            <div class="timestamp-result">
+                                <p id="timestamp-result-text"></p>
+                                <button class="copy-btn" onclick="copyToClipboard('timestamp-result-text')">复制结果</button>
+                            </div>
+                            <div class="timestamp-now">
+                                <button class="action-btn" onclick="getCurrentTimestamp()">获取当前时间戳</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 进制转换工具 -->
+                    <div class="tool-detail" id="tool-convertbase" style="display: none;">
+                        <div class="detail-header">
+                            <h2>🔢 进制转换</h2>
+                            <button class="close-btn" onclick="closeTool()">&times;</button>
+                        </div>
+                        <div class="detail-body">
+                            <p class="description">在二进制、八进制、十进制、十六进制之间进行转换。</p>
+                            <div class="base-container">
+                                <div class="base-input">
+                                    <select id="base-from">
+                                        <option value="2">二进制</option>
+                                        <option value="8">八进制</option>
+                                        <option value="10" selected>十进制</option>
+                                        <option value="16">十六进制</option>
+                                    </select>
+                                    <input type="text" id="base-input-text" placeholder="请输入数值">
+                                </div>
+                                <button class="action-btn" onclick="convertBase()">转换</button>
+                                <div class="base-output">
+                                    <div class="base-item">
+                                        <label>二进制</label>
+                                        <input type="text" id="base-bin" readonly>
+                                    </div>
+                                    <div class="base-item">
+                                        <label>八进制</label>
+                                        <input type="text" id="base-oct" readonly>
+                                    </div>
+                                    <div class="base-item">
+                                        <label>十进制</label>
+                                        <input type="text" id="base-dec" readonly>
+                                    </div>
+                                    <div class="base-item">
+                                        <label>十六进制</label>
+                                        <input type="text" id="base-hex" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 单位换算工具 -->
+                    <div class="tool-detail" id="tool-unitconvert" style="display: none;">
+                        <div class="detail-header">
+                            <h2>📏 单位换算</h2>
+                            <button class="close-btn" onclick="closeTool()">&times;</button>
+                        </div>
+                        <div class="detail-body">
+                            <p class="description">支持长度、重量、面积、体积、温度等多种单位的换算。</p>
+                            <div class="unit-container">
+                                <select id="unit-category">
+                                    <option value="length">长度</option>
+                                    <option value="weight">重量</option>
+                                    <option value="area">面积</option>
+                                    <option value="volume">体积</option>
+                                    <option value="temperature">温度</option>
+                                </select>
+                                <div class="unit-input">
+                                    <input type="number" id="unit-value" placeholder="请输入数值">
+                                    <select id="unit-from"></select>
+                                </div>
+                                <button class="action-btn" onclick="convertUnit()">转换</button>
+                                <div class="unit-output">
+                                    <select id="unit-to"></select>
+                                    <input type="text" id="unit-result" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 随机数生成工具 -->
+                    <div class="tool-detail" id="tool-random" style="display: none;">
+                        <div class="detail-header">
+                            <h2>🎲 随机数生成</h2>
+                            <button class="close-btn" onclick="closeTool()">&times;</button>
+                        </div>
+                        <div class="detail-body">
+                            <p class="description">生成指定范围内的随机整数或随机小数。</p>
+                            <div class="random-container">
+                                <div class="random-input">
+                                    <label>最小值</label>
+                                    <input type="number" id="random-min" value="0">
+                                </div>
+                                <div class="random-input">
+                                    <label>最大值</label>
+                                    <input type="number" id="random-max" value="100">
+                                </div>
+                                <label class="random-checkbox">
+                                    <input type="checkbox" id="random-decimal">
+                                    <span>生成小数</span>
+                                </label>
+                                <button class="action-btn" onclick="generateRandom()">生成随机数</button>
+                                <div class="random-result">
+                                    <input type="text" id="random-result" readonly>
+                                    <button class="copy-btn" onclick="copyToClipboard('random-result')">复制结果</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 密码生成器工具 -->
+                    <div class="tool-detail" id="tool-password" style="display: none;">
+                        <div class="detail-header">
+                            <h2>🔑 密码生成器</h2>
+                            <button class="close-btn" onclick="closeTool()">&times;</button>
+                        </div>
+                        <div class="detail-body">
+                            <p class="description">生成高强度随机密码，支持自定义长度和字符类型。</p>
+                            <div class="password-container">
+                                <label>
+                                    <span>密码长度</span>
+                                    <input type="range" id="password-length" min="4" max="64" value="16">
+                                    <span id="password-length-value">16</span>
+                                </label>
+                                <div class="password-options">
+                                    <label><input type="checkbox" id="password-uppercase" checked>大写字母</label>
+                                    <label><input type="checkbox" id="password-lowercase" checked>小写字母</label>
+                                    <label><input type="checkbox" id="password-numbers" checked>数字</label>
+                                    <label><input type="checkbox" id="password-symbols">特殊符号</label>
+                                </div>
+                                <button class="action-btn" onclick="generatePassword()">生成密码</button>
+                                <div class="password-result">
+                                    <input type="text" id="password-result" readonly>
+                                    <button class="copy-btn" onclick="copyToClipboard('password-result')">复制密码</button>
+                                </div>
+                                <div class="password-strength" id="password-strength"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 便民工具 -->
+            <section id="life" class="tool-section" style="display: none;">
+                <div class="section-header">
+                    <h1>便民工具</h1>
+                    <p>日常生活中实用的便民查询工具</p>
+                </div>
+                
+                <div class="tool-grid">
+                    <div class="tool-card" data-tool="phone">
+                        <div class="tool-icon">📱</div>
+                        <h3>手机号归属地</h3>
+                        <p>查询手机号码的归属地信息</p>
+                    </div>
+                    <div class="tool-card" data-tool="ip">
+                        <div class="tool-icon">🌐</div>
+                        <h3>IP查询</h3>
+                        <p>查询IP地址的地理位置信息</p>
+                    </div>
+                    <div class="tool-card" data-tool="weather">
+                        <div class="tool-icon">☀️</div>
+                        <h3>天气预报</h3>
+                        <p>查询全国城市的天气情况</p>
+                    </div>
+                    <div class="tool-card" data-tool="zodiac">
+                        <div class="tool-icon">🐲</div>
+                        <h3>生肖/星座查询</h3>
+                        <p>查询生肖和星座信息</p>
+                    </div>
+                </div>
+
+                <div class="tool-panel" id="life-panel">
+                    <!-- 手机号归属地查询工具 -->
+                    <div class="tool-detail" id="tool-phone">
+                        <div class="detail-header">
+                            <h2>📱 手机号归属地查询</h2>
+                            <button class="close-btn" onclick="closeTool()">&times;</button>
+                        </div>
+                        <div class="detail-body">
+                            <p class="description">输入手机号码，查询其归属地、运营商等信息。</p>
+                            <input type="tel" id="phone-input" placeholder="请输入手机号码" maxlength="11">
+                            <button class="action-btn" onclick="queryPhone()">查询</button>
+                            <div class="phone-result" id="phone-result"></div>
+                        </div>
+                    </div>
+
+                    <!-- IP查询工具 -->
+                    <div class="tool-detail" id="tool-ip" style="display: none;">
+                        <div class="detail-header">
+                            <h2>🌐 IP查询</h2>
+                            <button class="close-btn" onclick="closeTool()">&times;</button>
+                        </div>
+                        <div class="detail-body">
+                            <p class="description">查询IP地址的地理位置、运营商等信息，支持IPv4和IPv6。</p>
+                            <input type="text" id="ip-input" placeholder="请输入IP地址">
+                            <button class="action-btn" onclick="queryIP()">查询</button>
+                            <button class="action-btn" onclick="getMyIP()">查询我的IP</button>
+                            <div class="ip-result" id="ip-result"></div>
+                        </div>
+                    </div>
+
+                    <!-- 天气预报工具 -->
+                    <div class="tool-detail" id="tool-weather" style="display: none;">
+                        <div class="detail-header">
+                            <h2>☀️ 天气预报</h2>
+                            <button class="close-btn" onclick="closeTool()">&times;</button>
+                        </div>
+                        <div class="detail-body">
+                            <p class="description">查询全国各城市的实时天气和未来天气预报。</p>
+                            <input type="text" id="weather-city" placeholder="请输入城市名称">
+                            <button class="action-btn" onclick="queryWeather()">查询天气</button>
+                            <div class="weather-result" id="weather-result"></div>
+                        </div>
+                    </div>
+
+                    <!-- 生肖/星座查询工具 -->
+                    <div class="tool-detail" id="tool-zodiac" style="display: none;">
+                        <div class="detail-header">
+                            <h2>🐲 生肖/星座查询</h2>
+                            <button class="close-btn" onclick="closeTool()">&times;</button>
+                        </div>
+                        <div class="detail-body">
+                            <p class="description">根据出生日期查询生肖和星座信息。</p>
+                            <input type="date" id="zodiac-date">
+                            <button class="action-btn" onclick="queryZodiac()">查询</button>
+                            <div class="zodiac-result" id="zodiac-result"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2024 全能在线工具箱 - 免费实用工具集合</p>
+            <p>本站所有工具均免费使用，无需注册</p>
+        </div>
+    </footer>
+
+    <!-- Toast提示 -->
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
